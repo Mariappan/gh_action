@@ -6,7 +6,7 @@ on:
       - "main"
 
 jobs:
-  docker:
+  Build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -37,10 +37,8 @@ jobs:
 
       - name: Print output
         run: |
-          echo '### Docker image' >> $GITHUB_STEP_SUMMARY
-          prId="$(echo "$metadata")"
-          echo "metadata=$prId" >> "$GITHUB_STEP_SUMMARY"
-          prId="$(echo "$metadata" | jq '."image.name"')"
-          echo "ImageId=$prId" >> "$GITHUB_STEP_SUMMARY"
+          imageId="$(echo "$metadata" | jq '."image.name"')"
+          echo "### ImageId:" >> "$GITHUB_STEP_SUMMARY"
+          echo "    $imageId" >> "$GITHUB_STEP_SUMMARY"
         env:
           metadata: ${{ steps.dockerbuild.outputs.metadata }}
