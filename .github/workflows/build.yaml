@@ -50,7 +50,7 @@ jobs:
           echo 'Metadata: ${METADATA}' >> $GITHUB_STEP_SUMMARY
           echo ${{ steps.dockerbuild.outputs.imageid }} >> $GITHUB_STEP_SUMMARY
           echo ${{ steps.dockerbuild.outputs.digest }} >> $GITHUB_STEP_SUMMARY
-          echo ${{ steps.dockerbuild.outputs.metadata }} >> $GITHUB_STEP_SUMMARY
+          jq '."image.name"' < ${{ steps.dockerbuild.outputs.metadata }} >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
         env:
           IMAGE_ID: ${{ steps.dockerbuild.outputs.imageid }}
