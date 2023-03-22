@@ -1,3 +1,3 @@
-FROM cgr.dev/chainguard/nginx
+FROM cgr.dev/chainguard/wolfi-base:latest
 
 WORKDIR /app
