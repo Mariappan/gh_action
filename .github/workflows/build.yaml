@@ -32,8 +32,23 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Build and push
+        id: build
         uses: docker/build-push-action@v4
         with:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ghcr.io/mariappan/gh_action:latest
+
+      - name: Adding markdown
+        run: |
+          echo '### Docker image' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo 'ImageId: ${IMAGE_ID}' >> $GITHUB_STEP_SUMMARY
+          echo 'Digest: ${DIGEST}' >> $GITHUB_STEP_SUMMARY
+          echo 'Metadata: ${METADATA}' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+        env:
+          IMAGE_ID: ${{ steps.build.outputs.image_id }}
+          DIGEST: ${{ steps.build.outputs.digest }}
+          METADATA: ${{ steps. build.output.metadata }}
