@@ -37,7 +37,7 @@ jobs:
 
       - name: Print output
         run: |
-          imageId="$(echo "$metadata" | jq '."image.name"')"
+          imageId="$(echo "$metadata" | jq -r '."image.name"')"
           echo "### ImageId:" >> "$GITHUB_STEP_SUMMARY"
           echo "    $imageId" >> "$GITHUB_STEP_SUMMARY"
         env:
