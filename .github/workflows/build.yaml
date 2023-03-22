@@ -37,8 +37,10 @@ jobs:
 
       - name: Print output
         run: |
-          prId="$(echo "$metadata" | jq '.".image.name"')"
           echo '### Docker image' >> $GITHUB_STEP_SUMMARY
+          prId="$(echo "$metadata")"
+          echo "metadata=$prId" >> "$GITHUB_STEP_SUMMARY"
+          prId="$(echo "$metadata" | jq '."image.name"')"
           echo "ImageId=$prId" >> "$GITHUB_STEP_SUMMARY"
         env:
           metadata: ${{ steps.dockerbuild.outputs.metadata }}
