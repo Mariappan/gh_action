@@ -37,7 +37,7 @@ jobs:
 
       - name: Print output
         run: |
-          prId="$(echo "$metadata" | jq '.image\.name')"
+          prId="$(echo "$metadata" | jq '".image.name"')"
           echo '### Docker image' >> $GITHUB_STEP_SUMMARY
           echo "ImageId=$prId" >> "$GITHUB_STEP_SUMMARY"
         env:
